@@ -191,16 +191,36 @@ Several studies under the SIEMPRE umbrella are concerned with musical co-creatio
 
 The final focus within interaction that concerns SIEMPRE is leadership.  Here again, a common paradigm in musical performance parallels that of everyday human interaction.  By varying manipulating the leadership role, we can examine not only how changes to leadership affect group interaction in general, but also the specific implications these changes may have such already discussed phenomena as synchronization and entrainment, and the emotional understanding of the audience and performers.
 
-\section{Recent Results and Motivations}
-With this as the focus, SIEMPRE partners have designed and executed a wide array of experiments.
+\section{Recent Work and Motivations}
+With this as the focus, SIEMPRE partners have designed and executed a wide array of experiments both within and without the SIEMPRE umbrella.
 
 \vspace{12pt}
 \textbf{\textit{Overview of notable experiments and results here...  Recent work and/or motivations from CCRMA and Javier...}}
 \vspace{12pt}
 
+\subsection{Emotion in Motion}
+Emotion in Motion is an ongoing research project, investigating people’s affective response to musical stimuli in non-laboratory environments. The aim of this study is to explore the relationship between the musical content and changes in the emotional response of the listener, via physiological measurements and self-report questionnaires.
+The data capture terminal was designed as an installation that can operate in a public gallery or science centre (see Figure~\ref{fig:eyebeam}), where participants can take part in the experiment without external assistance by following on-screen instructions. Even though there have been several iterations and changes to the experimental design, the experiment consists essentially in the participant answering a small number of background and demographic questions (e.g. age, gender, musical expertise, etc.), and then listening to an approximately 90-second long musical excerpt selected randomly from a pool of songs of diverse styles, eras and emotional intent. While the music is playing, two physiological measurements are recorded simultaneously: electrodermal activity (EDA) and heart rate (HR). EDA and HR were chosen for their acknowledged use as physiological indicators of emotion (PIE) in the psychophysiology literature (see \cite{Plutchik:1994we}, \cite{Cacioppo:2000ws}, \cite{Jaimovich:2010wr}, and \cite{Boucsein:2011ub}), as well as for their unobtrusive measurement (both can be captured with sensors worn on one hand). After the excerpt completes, participants are asked to answer a brief self-report questionnaire, indicating how the music made them feel, their level of engagement and enjoyment, among other questions. This process is repeated for three different excerpts. For a detailed description of the experimental design, please refer to \cite{Jaimovich:2012vr}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth,angle=0,keepaspectratio=true,trim=0 0 0 0,clip=true]{eyebeam}
+	\caption{Participants at the Eyebeam Gallery in New York City, June 2011.}
+	\label{fig:eyebeam}
+\end{figure}
+
+The first iteration of the experiment started in the Science Gallery, Dublin, where it ran for a period of three months in the summer of 2010, having been later installed in public galleries in New York City, Genova, and currently running in Bergen and Singapore. To the date of this submission, over 6000 people have participated in the experiment, having more than 18000 recordings of physiological data associated with a musical excerpt. 
+
+Even though the greater part of the work conducted to this point has been focused in improving the data acquisition and feature extraction of signals, preliminary results show a significant correlation between physiological features and the self-reported questionnaire (\cite{Jaimovich:2012vr}). A detailed discussion of the experiment’s results is beyond the scope of this paper. Nonetheless, while analyzing the Emotion in Motion database, several mitigating factors were found that influence changes in physiology. We believe that these factors need to be taken into account when designing interfaces that use changes in physiology as measures of emotion.
+
+\subsection{Motivation}
 Several studies, particularly those with a focus on audience experience of music--be it a live performance, a video recording of a live performance, audio of a studio recording, or otherwise--note the importance of observing the audience experiment in as ecological a manner as possible (see \cite{Jaimovich:2012vr}, for example).  Furthermore, it is at least presumable that a good deal, if not the majority, of an individual's time spent experiencing music is when they are either alone, or among a small group of people--not in either a concert hall or laboratory.  Issues of ecological validity aside, it is at least important to consider implications on the aforementioned research foci when audiences (of one or more) experience music individually.
 
-\section{Framework Design}
+In 2012, SIEMPRE established an International Cooperation project (SIEMPRE-INCO) to explore these areas in further detail.  Specifically, the SIEMPRE-INCO project addresses empathic processes within the aforementioned four areas of interaction, but in remote locations.  It aims at understanding how emotional contagion and co-creation can and do occur when the individuals or audiences who are participating do not share the same physical environment.  How is the experience shaped the when two people share a listening experience from two different locations?
+
+\section{\secit{ShEMP} Design and Implementation}
+To explore the questions of SIEMPRE-INCO, we have built ShEMP, a framework upon which we can construct a range of experimental apparatuses.  A great deal of the partners' previous work has served to determine or the efficacy of a range of measure of audience (interactor) response mechanisms, including self-report questionnaires, input based around the GEMS scale, and judgements.  ShEMP's flexibility allows us to collect voluntary feedback using any or a combination of these models with ease.  Coupled with this, the MobileMuse sensor provides ShEMP participant physiological data--pulse oximetry, electrodermal activity, motion, and skin temperature.  This section discusses the software and hardware design and implementation of ShEMP.
+
 \subsection{Software}
 \vspace{12pt}
 \textbf{\textit{Your space, Spencer.}}
@@ -209,24 +229,42 @@ Several studies, particularly those with a focus on audience experience of music
 \subsubsection{Digital Signal Processing}
 In order to allow the hardware to interface with a variety of devices, signal is passed over a standard 1/8'' (3.5mm) TRRS audio plug, as the 1/8'' TRRS audio jack has become all but the standard on consumer mobile devices.  However, as standard wiring uses only the sleeve of the TRRS plug for input, it was necessary to devise a way to receive multiple input signals over a single channel.  On the mobile device (currently iOS devices are supported), the signal is received as an audio input stream.  Within Apple's AudioUnit framework, the passes through a DSP chain in order to split the multiplexed signal back into its original constituent signals.
 
-The signal is first lowpass-filtered (\textit{Fc} = 7.5kHz) in order to remove noise introduced by pulse-width modulation from the sensor hardware.  The signal is then multiplied sample-by-sample with sine waves at the frequencies of the component carrier waves established in frequency-division multiplexing in the sensor circuit.  In order to address frequency and phase jitter introduced by pulse-width modulation and timer imprecision from in the sensor micro-controller unit, a phase-lock loop is established between the filtered incoming signal and software oscillators controlled by the demodulation routine.  These multiplications produce sine waves with a positive DC offset at double the frequency of the initial carrier waves for each component signal.  These signals are then further lowpass-filtered (\textit{Fc} = 25Hz) to remove said sine waves and leave only the slowly varying DC offset as the final demodulated output for each signal.  These demodulated outputs are then exposed to other components of the framework for recording, streaming to an external server, sharing with other devices, or visualization within the user interface.
+The signal is first lowpass-filtered (\(Fc = 7.5 \text{kHz}\)) in order to remove noise introduced by pulse-width modulation from the sensor hardware.  The signal is then multiplied sample-by-sample with sine waves at the frequencies of the component carrier waves established in frequency-division multiplexing in the sensor circuit.  In order to address frequency and phase jitter introduced by pulse-width modulation and timer imprecision from in the sensor micro-controller unit, a phase-lock loop is established between the filtered incoming signal and software oscillators controlled by the demodulation routine.  These multiplications produce sine waves with a positive DC offset at double the frequency of the initial carrier waves for each component signal.  These signals are then further lowpass-filtered (\(Fc = 25 \text{Hz}\)) to remove said sine waves and leave only the slowly varying DC offset as the final demodulated output for each signal.  These demodulated outputs are then exposed to other components of the framework for recording, streaming to an external server, sharing with other devices, or visualization within the user interface.
 
 \subsection{Hardware}
-It was decided that the entire sensor system must fit on a single finger. In order to accomplish this, heart rate is measured using standard pulse oximetry techniques rather than a full electrocardiogram. The MobileMuse board houses four discrete sensors. Upon further consideration, and because of the ease of design, a temperature sensor was also added to the interface. Skin temperature change (in relationship to the environment) has been shown to be indicative of long term mood and it is thought that this might prove beneficial in assessment of emotional state. A triaxial accelerometer was also added to the circuit for gestural control. While this might seem redundant, independent hand gesture might introduce interesting options not presently available with a mobile device's onboard accelerometer or gyroscope. At minimum this enables two-handed gestural control.  Furthermore, an independent accelerometer provides a means of minimizing motion artifacts, an issue to which EDA sensors are particularly susceptible.
+It was decided that the entire sensor system must fit on a single finger. In order to accomplish this, heart rate is measured using standard pulse oximetry techniques rather than a full electrocardiogram. The MobileMuse board (\cite{Knapp:2011vl}) houses four discrete sensors. Upon further consideration, and because of the ease of design, a temperature sensor was also added to the interface. Skin temperature change (in relationship to the environment) has been shown to be indicative of long term mood and it is thought that this might prove beneficial in assessment of emotional state. A triaxial accelerometer was also added to the circuit for gestural control. While this might seem redundant, independent hand gesture might introduce interesting options not presently available with a mobile device's onboard accelerometer or gyroscope. At minimum this enables two-handed gestural control.  Furthermore, an independent accelerometer provides a means of minimizing motion artifacts, an issue to which EDA sensors are particularly susceptible.
 
-As shown in the block diagram in Figure 5, all of the sen- sor signals are amplified, processed, conditioned and then fed into the ADCs of an ATMega328PU processor. The choice of this process enables use of the MobileMuse as a custom Arduino board with all of the advantages this creates---most importantly, ubiquitous software availability. The ATMega processor firmware frequency-division multiplexes the sensor signals in order to create one single audio data stream for ease of transmission over the sleeve of the TRRS plug. The signal is then reconverted to an analog stream using the pulse-width modulation (PWM) output of the processor fed through an onboard DAC. Finally, magnetic isolation is used to remove any shock risks and to eliminate line noise.
+As shown in the block diagram in Figure 5, all of the sensor signals are amplified, processed, conditioned and then fed into the ADCs of an ATMega328PU processor. The choice of this process enables use of the MobileMuse as a custom Arduino board with all of the advantages this creates---most importantly, ubiquitous software availability. The ATMega processor firmware frequency-division multiplexes the sensor signals in order to create one single audio data stream for ease of transmission over the sleeve of the TRRS plug. The signal is then reconverted to an analog stream using the pulse-width modulation (PWM) output of the processor fed through an onboard DAC. Finally, magnetic isolation is used to remove any shock risks and to eliminate line noise.
 
-\section{Proposed Experiment}
-\vspace{12pt}
-\textbf{Emotion in Motion \textit{on the go...}}
-\vspace{12pt}
+\section{Proposed Sequence of Experiments}
+Taking the progress made in the Emotion in Motion experiments (\cite{Jaimovich:2012vr}) as a starting point, we propose a battery of experiments to explore group emotion, emotional contagion, and co-creation in a mobile environment.  In particular, these experiments aim to answer the following questions:
+
+\begin{itemize}
+	\item How does the psychophysiology of a listener as a part of a group differ from when they listen alone?
+	\item Does a listener's simple awareness that a listening or creative exercise is collaborative alter their emotional response?
+	\item What representations of this collaboration are most conducive to emotional contagion?
+	\item Does a listener's awareness that a listener or creative exercise is collaborative alter their \textit{quality of experience}? (\cite{SIEMPREProjectConsortium:2011vh}, \cite{SIEMPREProjectConsortium:2012tj})
+	\item Does a participant's awareness of their remote collaborator's emotional state(s) affect the quality of experience of collaborative music making?
+\end{itemize}
+
+To this end, we propose a sequence of iterative experiments that leverage ShEMP.  In the first experiment, each participant will be equipped with a mobile phone and MobileMuse sensor.  Background (including musical) and demographic information will be gathered from each participant.  When a case commences, the participant will be paired with a participant in a geographically separate location.  The two participants will be streamed selections of music drawn from the pool of songs with validated emotional content from the Emotion in Motion experiment.  Following each song selection, participants will be guided through a self-response questionnaire regarding their quality of experience.  The design of this questionnaire will be tuned based on recent results from Emotion in Motion and other SIEMPRE work around quality of experience.  Throughout the process, physiological data from each participant will be captured through the attached MobileMuse.
+
+Our initial hypothesis is that a listener's simple awareness that a listening experience is collaborative will affect their emotional response.  Assuming that this hypothesis holds, the sequence of experiments will continue to explore ways to improve the collaborators' quality of experience and to make such an interaction further conducive to emotional contagion.  This will be explored in successive experiments in the following ways:
+
+\begin{itemize}
+	\item Presentation of collaborator's physiological data streams to the listener in real time
+	\item Presentation various visualizations of collaborator's emotional response through shadow media (REF: Miwa/shadow media)
+	\item Enabling interaction with a group of collaborators selected by the participant based on demographic, location, musical selection, etc.
+\end{itemize}
+
+If our initial hypothesis does not hold, we intend to approach the successive experiments with the aim of reshaping our initial hypothesis---seeking ways in which a shared musical experience across remote locations can indeed affect their emotional response, enhancing emotional contagion and improving quality of experience.
 
 \section{Potential Issues}
 \vspace{12pt}
 \textbf{\textit{Anyone feel free to chime in here...}}
 \vspace{12pt}
 
-\section{Conclusions}
+\section{Final Remarks}
 
 %\end{document}  % This is where a 'short' article might terminate
 
