@@ -195,12 +195,13 @@ The final focus within interaction that concerns SIEMPRE is leadership.  Here ag
 With this as the focus, SIEMPRE partners have designed and executed a wide array of experiments both within and without the SIEMPRE umbrella.
 
 \vspace{12pt}
-\textbf{\textit{Overview of notable experiments and results here...  Recent work and/or motivations from CCRMA and Javier...}}
+\textbf{\textit{Overview of notable work from Spencer/Ge/CCRMA that comes to bear on the current work.}}
 \vspace{12pt}
 
 \subsection{Emotion in Motion}
 Emotion in Motion is an ongoing research project, investigating people’s affective response to musical stimuli in non-laboratory environments. The aim of this study is to explore the relationship between the musical content and changes in the emotional response of the listener, via physiological measurements and self-report questionnaires.
-The data capture terminal was designed as an installation that can operate in a public gallery or science centre (see Figure~\ref{fig:eyebeam}), where participants can take part in the experiment without external assistance by following on-screen instructions. Even though there have been several iterations and changes to the experimental design, the experiment consists essentially in the participant answering a small number of background and demographic questions (e.g. age, gender, musical expertise, etc.), and then listening to an approximately 90-second long musical excerpt selected randomly from a pool of songs of diverse styles, eras and emotional intent. While the music is playing, two physiological measurements are recorded simultaneously: electrodermal activity (EDA) and heart rate (HR). EDA and HR were chosen for their acknowledged use as physiological indicators of emotion (PIE) in the psychophysiology literature (see \cite{Plutchik:1994we}, \cite{Cacioppo:2000ws}, \cite{Jaimovich:2010wr}, and \cite{Boucsein:2011ub}), as well as for their unobtrusive measurement (both can be captured with sensors worn on one hand). After the excerpt completes, participants are asked to answer a brief self-report questionnaire, indicating how the music made them feel, their level of engagement and enjoyment, among other questions. This process is repeated for three different excerpts. For a detailed description of the experimental design, please refer to \cite{Jaimovich:2012vr}.
+
+The data capture terminal was designed as an installation that can operate in a public gallery or science centre (see Figure~\ref{fig:eyebeam}), where participants can take part in the experiment without external assistance by following on-screen instructions. Even though there have been several iterations and changes to the experimental design, the experiment consists essentially of the participant answering a small number of background and demographic questions (e.g. age, gender, musical expertise, etc.), and then listening to an approximately 90-second long musical excerpt selected randomly from a pool of songs of diverse styles, eras, and emotional intent. While the music is playing, two physiological measurements are recorded simultaneously: electrodermal activity (EDA) and heart rate (HR). EDA and HR were chosen for their acknowledged use as physiological indicators of emotion (PIE) in the psychophysiology literature (see \cite{Plutchik:1994we}, \cite{Cacioppo:2000ws}, \cite{Jaimovich:2010wr}, and \cite{Boucsein:2011ub}), as well as for their arguably unobtrusive measurement (both can be captured with sensors worn on one hand). After the excerpt completes, participants are asked to answer a brief self-report questionnaire, indicating how the music made them feel, their level of engagement and enjoyment, among other questions. This process is repeated for three different excerpts. For a detailed description of the experimental design, please refer to \cite{Jaimovich:2012vr}.
 
 \begin{figure}[h]
 	\centering
@@ -209,9 +210,23 @@ Emotion in Motion is an ongoing research project, investigating people’s affecti
 	\label{fig:eyebeam}
 \end{figure}
 
-The first iteration of the experiment started in the Science Gallery, Dublin, where it ran for a period of three months in the summer of 2010, having been later installed in public galleries in New York City, Genova, and currently running in Bergen and Singapore. To the date of this submission, over 6000 people have participated in the experiment, having more than 18000 recordings of physiological data associated with a musical excerpt. 
+The first iteration of the experiment started in the Science Gallery, Dublin, where it ran for a period of three months in the summer of 2010, having been later installed in public galleries in New York City, Genova, and currently running in Bergen and Singapore. At the time of writing (July 2012), over 6000 people have participated in the experiment, having more than 18000 recordings of physiological data associated with a musical excerpt.The first iteration of the experiment started in the Science Gallery, Dublin, for a period of three months in the summer of 2010, having been later installed in public galleries in New York City, Genoa, and currently running in Bergen and Singapore. To the date of this submission, over 6000 people have participated in the experiment, having more than 18000 recordings of physiological data associated with a musical excerpt.
+Even though the greater part of the work conducted to this point has been focused in improving the data acquisition and feature extraction of signals, preliminary results show significant correlations between physiological features and the self-reported questionnaire (\cite{Jaimovich:2012vr}). A detailed discussion of the experiment’s results is beyond the scope of this paper. Please see Figure~\ref{fig:eda} for an example of one of these correlations. Nonetheless, while analyzing the Emotion in Motion database, several mitigating factors were found to influence changes in physiology. We believe that these factors need to be taken into account when designing interfaces that use physiological changes as measures of emotion.
 
-Even though the greater part of the work conducted to this point has been focused in improving the data acquisition and feature extraction of signals, preliminary results show a significant correlation between physiological features and the self-reported questionnaire (\cite{Jaimovich:2012vr}). A detailed discussion of the experiment’s results is beyond the scope of this paper. Nonetheless, while analyzing the Emotion in Motion database, several mitigating factors were found that influence changes in physiology. We believe that these factors need to be taken into account when designing interfaces that use changes in physiology as measures of emotion.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth,angle=0,keepaspectratio=true,trim=0 0 0 0,clip=true]{eda}
+	\caption{Example of correlation found between a single feature from the physiology (mean of the corrected standard deviation of phasic EDA) and the self-reported answers to the valence question (r = .210, p<.001, N=1744).}
+	\label{fig:eda}
+\end{figure}Mitigating factors are mainly associated with the demographic information of the user, as well as physiological characteristics. As expected (\cite{JensenUrstad:1997tj}), age and gender have a negative relationship with heart rate variability (HRV) and HR. The electrodermal level (EDL), or the value of the tonic signal before the experiment, also has a negative relationship with the changes in both tonic and phasic signals. Even though this has been addressed in the literature, the exact relationship and any baseline corrections remains problematic (\cite{Boucsein:2011ub}).  Figure~\ref{fig:pasic_vs_tonic} shows a plot of phasic changes of the electrodermal activity versus EDL. It can be clearly seen in this figure a negative relationship between both variables, as well as a reduction in the range of the phasic changes with higher EDL values. The latter can be explained if we consider that the ceiling for skin conductance responses (SCRs), which have a positive onset, lowers with higher EDL values.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth,angle=0,keepaspectratio=true,trim=0 0 0 0,clip=true]{phasic_vs_tonic}
+	\caption{Scatter plot of Phasic standard deviation versus EDL or tonic start value (measured in reference to the range of the sensor), for 1744 cases.}
+	\label{fig:phasic_vs_tonic}
+\end{figure}
+Gender has also shown a significant correlation with features related to changes in EDA, as well as age, in a smaller degree. We are currently working on developing a methodology to standardize these mitigating factors, in order to improve the analysis of the physiological response a person has to musical stimuli. The example shown in Figure~\ref{fig:eda} has been calculated using the residuals of a linear regression using age, gender and EDL values as factors.
 
 \subsection{Motivation}
 Several studies, particularly those with a focus on audience experience of music--be it a live performance, a video recording of a live performance, audio of a studio recording, or otherwise--note the importance of observing the audience experiment in as ecological a manner as possible (see \cite{Jaimovich:2012vr}, for example).  Furthermore, it is at least presumable that a good deal, if not the majority, of an individual's time spent experiencing music is when they are either alone, or among a small group of people--not in either a concert hall or laboratory.  Issues of ecological validity aside, it is at least important to consider implications on the aforementioned research foci when audiences (of one or more) experience music individually.
@@ -259,12 +274,10 @@ Our initial hypothesis is that a listener's simple awareness that a listening ex
 
 If our initial hypothesis does not hold, we intend to approach the successive experiments with the aim of reshaping our initial hypothesis---seeking ways in which a shared musical experience across remote locations can indeed affect their emotional response, enhancing emotional contagion and improving quality of experience.
 
-\section{Potential Issues}
+\section{Discussion}
 \vspace{12pt}
-\textbf{\textit{Anyone feel free to chime in here...}}
+\textbf{\textit{Anyone feel free to pipe up!  Ben, your input would be especially useful here...}}
 \vspace{12pt}
-
-\section{Final Remarks}
 
 %\end{document}  % This is where a 'short' article might terminate
 
