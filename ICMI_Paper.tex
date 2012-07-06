@@ -152,6 +152,7 @@
 
 \maketitle
 \begin{abstract}
+As we continue to strive toward a deeper understanding human social interaction, the playing field continues to change beneath our feet.  Ever swiftly, in even the last decade, the means by which we interact, the frequency in which we do so, even the meaning of interaction within daily life continues to evolve as humans become connected in novel ways---one need only consider the ``Twittersphere'' or how text messages have come to largely replace paper letters or even email communication.  Since 2010, partners in the Social Interaction and Entrainment using Music Performance Experimentation have been investigating the concepts of emotional contagion, leadership, entrainment, and co-creation, and how they support social interaction through a series of studies of music performance and listening.  This paper introduces ShEMP, a mobile framework for Shared Emotion, Music, and Performance.  ShEMP is a new tool for use in the design an execution of experiments that take this investigation of human emotion and interaction further afield into shared music experiences that occur between groups connected via their mobile devices.  Here, we provide an overview of the framework and a description of a series of experiments for which we have implemented this new toolkit.
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -194,9 +195,8 @@ The final focus within interaction that concerns SIEMPRE is leadership.  Here ag
 \section{Recent Work and Motivations}
 With this as the focus, SIEMPRE partners have designed and executed a wide array of experiments both within and without the SIEMPRE umbrella.
 
-\vspace{12pt}
-\textbf{\textit{Overview of notable work from Spencer/Ge/CCRMA that comes to bear on the current work.}}
-\vspace{12pt}
+\subsection{Center for Computer Research in Music and Acoustics}
+A number of research efforts have utilized mobile technologies to examine the role of performers, listeners, and conductors. Wang’s Ocarina broadcasts individual performances of a touchscreen flute-like instrument to a global community of listeners \cite{Wang:2009ua}. Here, listener engagement is assessed with three options, “heart” (like), “skip” (dislike), or no response. The locations of the performer and listeners who have ``hearted'' a given performance are visualized on a rendering of the earth, lending a further degree of interaction among listeners. World Stage (\cite{Wang:2011vu}) provides a different perspective of listener/performer engagement and a greater degree of intimacy by dynamically matching a musical performer with three ``judges''. Using a set of predefined emoticons and, optionally, textual feedback, judges assess a performance in real-time. Both the performer and the judges see these responses simultaneously, allowing not only a hermetic appraisal of the music being heard, but potentially also a collaborative, dialectical assessment. Oh’s \textit{Heart} combines musical-emotional data collection/visualization, and musical performance (\cite{Oh:2011vg}). During a performance of a specifically tailored computer music work, listeners with smartphones self-report their level of excitement, valence in terms of negative/positive, and heart rate (by tapping the screen in synchrony with their observed heart rate) via a smartphone-accessible website. This data is aggregated and displayed for the whole audience to view as the musical work progresses. 
 
 \subsection{Emotion in Motion}
 Emotion in Motion is an ongoing research project, investigating people’s affective response to musical stimuli in non-laboratory environments. The aim of this study is to explore the relationship between the musical content and changes in the emotional response of the listener, via physiological measurements and self-report questionnaires.
@@ -251,7 +251,7 @@ It was decided that the entire sensor system must fit on a single finger. In ord
 
 As shown in the block diagram in Figure 5, all of the sensor signals are amplified, processed, conditioned and then fed into the ADCs of an ATMega328PU processor. The choice of this process enables use of the MobileMuse as a custom Arduino board with all of the advantages this creates---most importantly, ubiquitous software availability. The ATMega processor firmware frequency-division multiplexes the sensor signals in order to create one single audio data stream for ease of transmission over the sleeve of the TRRS plug. The signal is then reconverted to an analog stream using the pulse-width modulation (PWM) output of the processor fed through an onboard DAC. Finally, magnetic isolation is used to remove any shock risks and to eliminate line noise.
 
-\section{Proposed Sequence of Experiments}
+\section{Proposed Series of Ex\-per\-i\-ments}
 Taking the progress made in the Emotion in Motion experiments (\cite{Jaimovich:2012vr}) as a starting point, we propose a battery of experiments to explore group emotion, emotional contagion, and co-creation in a mobile environment.  In particular, these experiments aim to answer the following questions:
 
 \begin{itemize}
